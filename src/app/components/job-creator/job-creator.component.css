@@ -16,10 +16,59 @@
     display: none;
 }
 
-.file-upload {
-
-}
-
 .error {
     color: red;
+}
+
+.mat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+    width: 100%;
+}
+
+.description-field {
+    width: 100%;
+}
+
+.config-field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    border: 1px solid black;
+    width: 200px;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px;
+}
+
+.container-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.config-icon {
+    margin-left: 5px;
+}
+.config-label{
+    margin-left: -5px;
+    width: 88px;
+}
+
+.title-bar {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }

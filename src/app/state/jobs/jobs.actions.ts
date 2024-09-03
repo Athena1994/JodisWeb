@@ -1,5 +1,6 @@
 import { createAction, createActionGroup, emptyProps, props } from "@ngrx/store";
 import { Job } from "../../models/job.interface";
+import { Client } from "../../models/client.interface";
 
 
 export const jobsActions = createActionGroup({
@@ -16,5 +17,9 @@ export const jobsActions = createActionGroup({
       SelectJob: props<{ job: Job }>(),
 
       AddJob: props<{ job: Job }>(),
+
+      AssignJobs: props<{ jobs: Job[], client: Client | null }>(),
+      AssignJobsSuccess: props<{ jobs: Job[] }>(),
+      AssignJobsFailure: props<{ error: string }>(),
     }
   });

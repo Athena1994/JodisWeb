@@ -7,10 +7,54 @@
     background-color: darkslategrey;
   }
 
-  .toolbar-spacer {
-    flex: 1 1 auto;
-  }
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
 
-  .toolbar-button {
-    margin: 0 5px;
-  }
+.toolbar-button {
+  margin: 0 5px;
+}
+
+.jobs-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.client-assign-container{
+  display:flex;
+  justify-content: flex-end;
+  align-items: center;
+  max-width: 250px;
+}
+
+.mat-form-field-wrapper {
+  padding: 4px !important;
+}
+
+
+
+.job-line {
+  display: flex;
+  flex-direction: row;
+
+  background-color: rgb(77, 92, 92);
+  height:45px;
+  border-bottom: 1px solid black;
+}
+
+.actions-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.client-select {
+  padding: 5px;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

@@ -40,4 +40,14 @@ export class JobService {
             this.api_url.toString()+"jobs/delete",
             ({ids: jobs.map(j => j.id)})).pipe(map(res => res.deletedIds));
     }
+    unassignJobs(jobs: Job[]): Observable<Job[]> {
+        return this.http.post<Job[]>(
+            this.api_url.toString()+"jobs/unassign",
+            ({jobIds: jobs.map(j => j.id)}));
+    }
+    assignJobs(jobs: Job[], clientId: number): Observable<Job[]> {
+        return this.http.post<Job[]>(
+            this.api_url.toString()+"jobs/assign",
+            ({jobIds: jobs.map(j => j.id), clientId: clientId}));
+    }
 }

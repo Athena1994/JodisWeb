@@ -1,0 +1,23 @@
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.client-container{
+    display:flex;
+    flex-direction:column;
+    gap: 5px !important;
+    padding: 5px;
+    background-color: rgb(41, 43, 41);
+}
+
+.job-line {
+    background-color: rgb(77, 92, 92);
+    height:45px;
+    border-bottom: 1px solid black;
+}
+
+
+.toolbar-button {
+    margin-right:-15px;
+}

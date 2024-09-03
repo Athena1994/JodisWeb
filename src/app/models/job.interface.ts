@@ -5,5 +5,6 @@ export interface Job {
     sub_state: string;
     config: JSON;
     name: string;
+    rank: number;
     description: string;
 }

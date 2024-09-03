@@ -20,3 +20,10 @@ export const selectFinishedJobs = createSelector(selectJobs,
 export const selectSelectedJob = createSelector(selectJobsState,
     state => state.selectedJob
 );
+
+export const selectJobsByClientId = (clientId: number) => createSelector(selectJobs,
+    jobs => jobs.filter(job => job.client_id === clientId)
+                .sort((a, b) => a.rank - b.rank));
+
+export const selectJobsByIds = (ids: number[]) => createSelector(selectJobs,
+    jobs => jobs.filter(job => ids.includes(job.id)))

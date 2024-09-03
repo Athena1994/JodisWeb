@@ -1,30 +1,50 @@
-<mat-toolbar>
-    <h2>Unassigned Jobs</h2>
-    <span class="toolbar-spacer"></span>
-    <mat-select color="primary">
-        @for (client of (clients$ | async); track client) {
-        <mat-option value="client.name">{{ client.name }}</mat-option>
-        }
-    </mat-select>
-    <button mat-raised-button
-            class="toolbar-button"
-            color="primary"
-            (click)="assignJobs()">Assign</button>
-    <button mat-icon-button
-            class="toolbar-button"
-            (click)="deleteJobs()">
-        <mat-icon>delete</mat-icon>
-    </button>
-</mat-toolbar>
-<span class="container">
+
+<mat-card>
+
+    <mat-toolbar>
+        <h1>Unassigned Jobs</h1>
+    </mat-toolbar>
+
+    <mat-card>
+        <mat-card-content>
+    <mat-toolbar class="jobs-container">
         @for(job of jobs; track job) {
-        <li>
-            <mat-checkbox (change)="updateSelection(job, $event.checked)">
-            {{ job.name }} - {{ job.description }}
-            </mat-checkbox>
-        </li>
-    }
-</span>
-@for(job of selected; track job){
-    {{ job.name }} - {{ job.description }},
-}
+            <mat-toolbar-row class="job-line">
+                <mat-checkbox (change)="updateSelection(job, $event.checked)">
+                    {{ job.name }} - {{ job.description }}
+                </mat-checkbox>
+                <span class="toolbar-spacer" style="width: 500px;"></span>
+                <button mat-icon-button
+                        (click)="deleteJob(job)"><mat-icon>delete</mat-icon></button>
+            </mat-toolbar-row>
+        }
+    </mat-toolbar>
+</mat-card-content>
+</mat-card>
+
+    <mat-toolbar class="toolbar">
+        <div class="client-assign-container">
+            <mat-form-field subscriptSizing="dynamic"
+                            class="client-select">
+
+                <mat-label>Client</mat-label>
+                <mat-select color="primary"
+                            [(ngModel)]="selectedClient"
+                            (selectionChange)="changeClientSelection($event.value)">
+                    @for (client of (clients$ | async); track client) {
+                        <mat-option [value]="client">
+                            {{ client.name }}
+                        </mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <button mat-raised-button
+                    [disabled]="!selectedClient || !selected.length"
+                    class="toolbar-button"
+                    color="primary"
+                    (click)="assignJobs()">Assign</button>
+        </div>
+
+    </mat-toolbar>
+
+</mat-card>

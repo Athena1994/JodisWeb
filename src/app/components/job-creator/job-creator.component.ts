@@ -5,17 +5,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { ConfigValidationService } from '../../services/configValidation.service';
 import { select, Store } from '@ngrx/store';
 import { newJobActions } from '../../state/new-job/new-job.actions';
-import { isPending, isReadyToCreate, selectDescription, selectError, selectName, selectStatus } from '../../state/new-job/new-job.selectors';
+import { hasValidConfig, isCreating, isReadyToCreate, isValidating, selectConfig, selectDescription, selectError, selectName, selectStatus } from '../../state/new-job/new-job.selectors';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
-import { map } from 'rxjs';
+import { combineLatest, map } from 'rxjs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-job-creator',
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, MatIconModule, CommonModule,
-    MatProgressSpinnerModule, FormsModule
+    MatProgressSpinnerModule, FormsModule, MatToolbarModule, MatCardModule,
+    MatButtonModule, MatTooltipModule
   ],
   templateUrl: './job-creator.component.html',
   styleUrl: './job-creator.component.css'
@@ -35,10 +40,18 @@ export class JobCreatorComponent {
   name$ = this.store.pipe(select(selectName));
   description$ = this.store.pipe(select(selectDescription));
 
-  configFile?: File;
-  fileName?: string;
+  validationFailed$ = this.store.pipe(select(selectStatus)).pipe(
+    map(status => status === 'error')
+  );
+  isValidating$ = this.store.pipe(select(isValidating));
+  isCreating$ = this.store.pipe(select(isCreating))
+  validConfig$ = this.store.pipe(select(hasValidConfig));
 
-  showSpinner$ = this.store.pipe(select(isPending));
+  componentDisabled$ = this.status$.pipe(
+    map(status => status !== 'idle')
+  );
+
+
   spinnerText$ = this.store.pipe(select(selectStatus)).pipe(
     map(status => {
       switch (status) {
@@ -71,8 +84,6 @@ export class JobCreatorComponent {
     const file:File = event.target.files[0];
 
     if (file) {
-        this.fileName = file.name;
-        this.configFile = file;
         this.store.dispatch(newJobActions.validateConfig(
           { config: await file.text() }));
     }

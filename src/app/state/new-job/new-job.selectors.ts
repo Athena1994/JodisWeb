@@ -20,8 +20,15 @@ export const isReadyToCreate = createSelector(selectNewJobState,
     && state.config !== null
 );
 
-export const isPending = createSelector(selectNewJobState,
-    state => state.status === 'validating' || state.status === 'creating'
+export const hasValidConfig = createSelector(selectNewJobState,
+    state => state.config !== null
+);
+
+export const isValidating = createSelector(selectNewJobState,
+    state => state.status === 'validating'
+);
+export const isCreating = createSelector(selectNewJobState,
+    state => state.status === 'creating'
 );
 
 export const getJob = createSelector(selectNewJobState,

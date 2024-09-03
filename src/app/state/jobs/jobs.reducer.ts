@@ -37,4 +37,13 @@ export const jobsReducer = createReducer(
         (state, { deletedIds }) => ({ ...state, jobs: state.jobs.filter(j => !deletedIds.includes(j.id)) })),
     on(jobsActions.deleteJobsFailure,
         (state, { error }) => ({ ...state, error, status: 'error' as const })),
-);
+    on(jobsActions.assignJobs,
+        (state) => ({ ...state, status: 'loading' as const })),
+    on(jobsActions.assignJobsSuccess,
+        (state, { jobs }) => ({ ...state, jobs:  state.jobs.filter(j =>
+            !jobs.map(j=>j.id).includes(j.id)).concat(jobs) })),
+    on(jobsActions.assignJobsFailure,
+        (state, { error }) => ({ ...state, error, status: 'error' as const }))
+     );
+
+

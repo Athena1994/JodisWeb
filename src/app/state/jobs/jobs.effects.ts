@@ -24,6 +24,24 @@ export class JobsEffects{
         ))
     ));
 
+    assignJobs = createEffect(() => this.actions$.pipe(
+        ofType(jobsActions.assignJobs),
+        switchMap(({ jobs, client }) => {
+            if (client === null) {
+                return this.jobService.unassignJobs(jobs).pipe(
+                    map((jobs) => jobsActions.assignJobsSuccess({ jobs })),
+                    catchError(error => of(jobsActions.assignJobsFailure({ error })))
+                )
+            }
+            else {
+                return this.jobService.assignJobs(jobs, client.id).pipe(
+                    map((jobs) => jobsActions.assignJobsSuccess({ jobs })),
+                    catchError(error => of(jobsActions.assignJobsFailure({ error })))
+                )
+            }
+        })
+    ));
+
     constructor(
         private actions$: Actions,
         private jobService: JobService
