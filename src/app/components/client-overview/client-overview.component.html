@@ -1,70 +1,14 @@
 
 <mat-card >
 
-<mat-toolbar>
-    <h2>Clients</h2>
-</mat-toolbar>
+    <mat-toolbar>
+        <h2>Clients</h2>
+    </mat-toolbar>
 
-<mat-card-content class="client-container">
-
-@for (client of (clients$ | async); track client)
-{
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>{{ client.name }}</mat-card-title>
-            <mat-card-subtitle>
-                (<span *ngIf="client.connected"> connected</span>
-                <span *ngIf="!client.connected"> disconnected</span>)
-            </mat-card-subtitle>
-        </mat-card-header>
-
-
-        <mat-card-content>
-            <mat-toolbar style="min-height: 0px;">
-                @for (job of (getJobs(client) | async);
-                      let f = $first; let l =$last;
-                      track job)
-                {
-                <mat-toolbar-row class="job-line">
-                    <span>{{ job.name }}</span>
-                    <span class="toolbar-spacer"></span>
-                    <button mat-icon-button
-                            [disabled]="f"
-                            class="toolbar-button">
-                        <mat-icon fontIcon="vertical_align_top"></mat-icon>
-                    </button>
-                    <button mat-icon-button
-                            [disabled]="f"
-                            class="toolbar-button">
-                        <mat-icon fontIcon="arrow_upwards"></mat-icon>
-                    </button>
-                    <button mat-icon-button
-                            [disabled]="l"
-                            class="toolbar-button">
-                        <mat-icon fontIcon="arrow_downwards"></mat-icon>
-                    </button>
-                    <button mat-icon-button
-                            class="toolbar-button"
-                            matTooltip="Unassign Job."
-                            (click)="unassignJob(job)">
-                        <mat-icon fontIcon="assignment_return"></mat-icon>
-                    </button>
-
-                    <button mat-icon-button
-                            class="toolbar-button"
-                            (click)="deleteJob(job)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-
-                </mat-toolbar-row>
-            }
-            </mat-toolbar>
-
-        </mat-card-content>
-
-
-    </mat-card>
-
-}
-</mat-card-content>
+    <mat-card-content class="client-container">
+    @for (client of (clients$ | async); track client)
+    {
+        <app-client-control [client]="client"></app-client-control>
+    }
+    </mat-card-content>
 </mat-card>

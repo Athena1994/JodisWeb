@@ -21,9 +21,17 @@ export const selectSelectedJob = createSelector(selectJobsState,
     state => state.selectedJob
 );
 
-export const selectJobsByClientId = (clientId: number) => createSelector(selectJobs,
-    jobs => jobs.filter(job => job.client_id === clientId)
+export const selectScheduledJobsByClientId = (clientId: number) => createSelector(selectJobs,
+    jobs => jobs.filter(job => job.client_id === clientId && job.sub_state == "SCHEDULED"
+    )
                 .sort((a, b) => a.rank - b.rank));
+
+
+export const selectActiveClientJob = (clientId: number) => createSelector(selectJobs,
+    jobs => jobs.filter(job => job.client_id === clientId && job.sub_state == "RUNNING")
+)
+
+
 
 export const selectJobsByIds = (ids: number[]) => createSelector(selectJobs,
     jobs => jobs.filter(job => ids.includes(job.id)))

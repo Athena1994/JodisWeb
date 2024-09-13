@@ -6,4 +6,5 @@ export interface Client {
     connected: boolean;
     jobIds: number[];
     jobs: Job[];
+    state: string;
 }

@@ -7,3 +7,7 @@ export const selectJobsState = createFeatureSelector<ClientsState>('clients');
 export const selectClients = createSelector(selectJobsState,
     state => state.clients
 );
+
+export const selectActionPending = createSelector(selectJobsState,
+    state => state.status !== 'idle'
+);

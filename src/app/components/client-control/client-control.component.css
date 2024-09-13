@@ -1,0 +1,42 @@
+
+.client-title-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: -5px;
+}
+
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.scheduled-job {
+    background-color: rgb(77, 92, 92);
+    height:45px;
+    border-bottom: 1px solid black;
+}
+.scheduled-job-button {
+    margin-right:-15px;
+}
+
+
+.active-job {
+    background-color: rgb(72, 83, 54);
+    height:45px;
+    border-bottom: 1px solid black;
+}
+.active-job-title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px
+}
+.active-job-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.active-job-button {
+    margin-right: -15px;
+}

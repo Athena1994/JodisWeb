@@ -5,6 +5,7 @@ import { catchError, map, switchMap } from "rxjs/operators";
 import { of } from "rxjs";
 import { ClientService } from "../../services/clients.service";
 import { clientActions } from "./clients.actions";
+import { Client } from "../../models/client.interface";
 
 
 @Injectable()
@@ -15,6 +16,14 @@ export class ClientsEffects{
         switchMap(() => this.clientService.getClients().pipe(
             map(clients => clientActions.loadSuccess({ clients })),
             catchError(error => of(clientActions.loadFailure({ error })))
+        ))
+    ));
+
+    requestStateChange$ = createEffect(() => this.actions$.pipe(
+        ofType(clientActions.requestStateChange),
+        switchMap(({client, active}) => this.clientService.requestStateChange(client, active).pipe(
+            map((c) => clientActions.requestStateChangeSuccess({client: c})),
+            catchError(error => of(clientActions.requestStateChangeFailure({ error })))
         ))
     ));
 
