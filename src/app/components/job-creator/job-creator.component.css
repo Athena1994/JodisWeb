@@ -28,11 +28,11 @@
 
 .toolbar-spacer {
     flex: 1 1 auto;
-    width: 100%;
 }
 
 .description-field {
-    width: 100%;
+    flex: 1;
+    min-width: none;
 }
 
 .config-field {
@@ -42,7 +42,7 @@
     justify-content: flex-end;
     gap: 20px;
     border: 1px solid black;
-    width: 200px;
+    max-width: 200px;
 }
 
 .card-container {
@@ -50,6 +50,7 @@
     flex-direction: row;
     gap: 20px;
     padding: 20px;
+    flex: 1, 1;
 }
 
 .container-left {
@@ -64,7 +65,7 @@
 }
 .config-label{
     margin-left: -5px;
-    width: 88px;
+    max-width: 88px;
 }
 
 .title-bar {

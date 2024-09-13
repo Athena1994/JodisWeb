@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Directive, ElementRef, Input, ViewChild } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,12 +15,31 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+@Directive({
+  selector: '[containerSizeCheck]',
+  standalone: true
+})
+export class ContainerSizeCheckDirective {
+  @Input('showLabel') showLabel: boolean = false;
+
+  constructor(private elementRef: ElementRef) { }
+
+  ngOnInit() {
+    const container = this.elementRef.nativeElement;
+    const containerWidth = container.getBoundingClientRect().width;
+
+    // Adjust the threshold as needed
+    this.showLabel = containerWidth > 300; // Show label if container width is greater than 300 pixels
+  }
+}
+
+
 @Component({
   selector: 'app-job-creator',
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, MatIconModule, CommonModule,
     MatProgressSpinnerModule, FormsModule, MatToolbarModule, MatCardModule,
-    MatButtonModule, MatTooltipModule
+    MatButtonModule, MatTooltipModule, ContainerSizeCheckDirective
   ],
   templateUrl: './job-creator.component.html',
   styleUrl: './job-creator.component.css'

@@ -7,20 +7,20 @@
 
     <mat-card>
         <mat-card-content>
-    <mat-toolbar class="jobs-container">
-        @for(job of jobs; track job) {
-            <mat-toolbar-row class="job-line">
-                <mat-checkbox (change)="updateSelection(job, $event.checked)">
-                    {{ job.name }} - {{ job.description }}
-                </mat-checkbox>
-                <span class="toolbar-spacer" style="width: 500px;"></span>
-                <button mat-icon-button
-                        (click)="deleteJob(job)"><mat-icon>delete</mat-icon></button>
-            </mat-toolbar-row>
-        }
-    </mat-toolbar>
-</mat-card-content>
-</mat-card>
+            <mat-toolbar class="jobs-container">
+                @for(job of jobs; track job) {
+                    <mat-toolbar-row class="job-line">
+                        <mat-checkbox (change)="updateSelection(job, $event.checked)">
+                            {{ job.name }} - {{ job.description }}
+                        </mat-checkbox>
+                        <span class="toolbar-spacer"></span>
+                        <button mat-icon-button
+                                (click)="deleteJob(job)"><mat-icon>delete</mat-icon></button>
+                    </mat-toolbar-row>
+                }
+            </mat-toolbar>
+        </mat-card-content>
+    </mat-card>
 
     <mat-toolbar class="toolbar">
         <div class="client-assign-container">
