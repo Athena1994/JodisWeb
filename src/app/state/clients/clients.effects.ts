@@ -19,11 +19,11 @@ export class ClientsEffects{
         ))
     ));
 
-    requestStateChange$ = createEffect(() => this.actions$.pipe(
-        ofType(clientActions.requestStateChange),
-        switchMap(({client, active}) => this.clientService.requestStateChange(client, active).pipe(
-            map((c) => clientActions.requestStateChangeSuccess({client: c})),
-            catchError(error => of(clientActions.requestStateChangeFailure({ error })))
+    sendClientRequest$ = createEffect(() => this.actions$.pipe(
+        ofType(clientActions.sendClientRequest),
+        switchMap(({client, cmd, value}) => this.clientService.sendRequest(client, cmd, value).pipe(
+            map((c) => clientActions.sendClientRequestSuccess()),
+            catchError(error => of(clientActions.sendClientRequestFailure({ error })))
         ))
     ));
 

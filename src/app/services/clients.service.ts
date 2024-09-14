@@ -14,9 +14,9 @@ export class ClientService {
         return this.http.get<Client[]>(this.api_url.toString()+"clients")
     }
 
-    requestStateChange(client: Client, active: boolean) {
-        return this.http.post<Client>(
-            this.api_url.toString()+"client/request_state",
-            ({clientId: client.id, active:active}))
+    sendRequest(client: Client, cmd: string, args: any){
+        return this.http.post(
+            this.api_url.toString()+"client/request",
+            ({clientId: client.id, cmd, args: args}))
     }
 }

@@ -42,12 +42,10 @@ export const clientsReducer = createReducer(
         }),
     on(clientActions.loadFailure,
         (state, { error }) => ({ ...state, error, status: 'error' as const })),
-    on(clientActions.requestStateChange,
+    on(clientActions.sendClientRequest,
         (state) => ({ ...state, status: 'waiting' as const })),
-    on(clientActions.requestStateChangeSuccess,
-        (state, {client}) => ({...state,
-            status: 'idle' as const,
-            clients: state.clients.map(c => c.id === client.id ? client : c)})),
-    on(clientActions.requestStateChangeFailure,
+    on(clientActions.sendClientRequestSuccess,
+        (state) => ({...state, status: 'idle' as const })),
+    on(clientActions.sendClientRequestFailure,
         (state, { error }) => ({ ...state, error, status: 'error' as const }))
 );

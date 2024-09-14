@@ -1,5 +1,9 @@
+
 <mat-card >
+    <app-card-overlay [visible]="(actionPending$|async)!"></app-card-overlay>
+
     <mat-card-header>
+
         <mat-card-title class="client-title-container">
             <div>{{ client.name }}</div>
             @if (client.state === "ACTIVE")
@@ -25,8 +29,10 @@
             <span *ngIf="!client.connected"> disconnected</span>)
         </mat-card-subtitle>
     </mat-card-header>
-
     <mat-card-content>
+
+        @if (!(hasNoJobs$ | async))
+        {
         <mat-toolbar style="min-height: 0px;">
 
             @if (activeJob$ | async; as runningJob)
@@ -42,13 +48,14 @@
                                 [disabled]="client.state === 'ACTIVE'"
                                 class="scheduled-job-button"
                                 matTooltip="Unassign Job."
-                                (click)="unassignJob(runningJob)">
+                                (click)="pauseJob(runningJob)">
                             <mat-icon fontIcon="assignment_return"></mat-icon>
                         </button>
 
                         <button mat-icon-button
+                                [disabled]="client.state === 'ACTIVE'"
                                 class="scheduled-job-button"
-                                (click)="deleteJob(runningJob)">
+                                (click)="cancelJob(runningJob)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </span>
@@ -92,8 +99,8 @@
             </mat-toolbar-row>
         }
         </mat-toolbar>
+        }
 
     </mat-card-content>
-
 
 </mat-card>

@@ -21,5 +21,7 @@ export const jobsActions = createActionGroup({
       AssignJobs: props<{ jobs: Job[], client: Client | null }>(),
       AssignJobsSuccess: props<{ jobs: Job[] }>(),
       AssignJobsFailure: props<{ error: string }>(),
+
+      ApplyUpdates: props<{ id: number, updates: any }>(),
     }
   });
