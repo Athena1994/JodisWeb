@@ -27,12 +27,17 @@ export const clientsReducer = createReducer(
         (state, { clients }) => {
             return({ ...state, clients, status: 'idle' as const })
         }),
-    on(clientActions.updateConnectionState,
-        (state, { client_id, connected }) => {
+    on(clientActions.applyUpdates,
+        (state, { client_id, updates }) => {
             return({
                 ...state,
-                clients: state.clients.map(
-                    c => c.id === client_id ? {...c, connected} : c)
+                clients: state.clients.map(c => {
+                    if (c.id === client_id) {
+
+                        return { ...c, ...updates }
+                    }
+                    return c;
+                })
             })
         }),
     on(clientActions.loadFailure,

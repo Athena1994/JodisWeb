@@ -9,7 +9,7 @@ export const clientActions = createActionGroup({
       LoadSuccess: props<{ clients: Client[] }>(),
       LoadFailure: props<{ error: string }>(),
 
-      UpdateConnectionState: props<{ client_id: number, connected: boolean }>(),
+      ApplyUpdates: props<{ client_id: number, updates: any }>(),
 
       RequestStateChange: props<{ client: Client, active: boolean }>(),
       RequestStateChangeSuccess: props<{ client: Client }>(),

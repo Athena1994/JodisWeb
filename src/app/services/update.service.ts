@@ -16,10 +16,10 @@ export class UpdateService {
         this.socket = io(this.api_url.toString()+"update",
         {transports: ['websocket'], timestampRequests: true});
 
-        this.socket.on('client-connection-changed', ({id, connected}) => {
+        this.socket.on('client-changed', ({id, updates}) => {
             this.store.dispatch(
-                clientActions.updateConnectionState(
-                    {client_id: id, connected}));
+                clientActions.applyUpdates(
+                    {client_id: id, updates}));
         })
     }
 }
