@@ -1,0 +1,55 @@
+@if(job){
+    <mat-expansion-panel hideToggle="true">
+
+      <mat-expansion-panel-header>
+            <mat-toolbar-row class="active-job">
+                <div class="active-job-title-container">
+                    <mat-icon>work</mat-icon>
+                    <span>{{ job.name }}</span>
+                </div>
+                <span class="toolbar-spacer"></span>
+                <span class="active-job-button-container">
+                    <button mat-icon-button
+                            [disabled]="!allowRequests"
+                            class="active-job-button"
+                            matTooltip="Unassign Job."
+                            (click)="pauseJob(job)">
+                        <mat-icon fontIcon="assignment_return"></mat-icon>
+                    </button>
+
+                    <button mat-icon-button
+                            [disabled]="!allowRequests"
+                            class="active-job-button"
+                            (click)="cancelJob(job)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </span>
+            </mat-toolbar-row>
+        </mat-expansion-panel-header>
+
+        <div>
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Training Step</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-progress-bar mode="determinate"
+                                      [value]="100"></mat-progress-bar>
+                </mat-card-content>
+            </mat-card>
+
+
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Evaluation Step</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-progress-bar mode="determinate"
+                                      [value]="30"></mat-progress-bar>
+                </mat-card-content>
+            </mat-card>
+
+        </div>
+
+    </mat-expansion-panel>
+}

@@ -14,12 +14,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { clientActions } from '../../state/clients/clients.actions';
 import { selectActionPending } from '../../state/clients/clients.selectors';
 import { CardOverlayComponent } from "./card-overlay/card-overlay.component";
+import { ActiveJobComponent } from './active-job/active-job.component';
 
 @Component({
   selector: 'app-client-control',
   standalone: true,
   imports: [MatCardModule, CommonModule, MatToolbarModule, MatIconModule,
-    MatButtonModule, MatTooltipModule, CardOverlayComponent],
+    MatButtonModule, MatTooltipModule, CardOverlayComponent, ActiveJobComponent],
   templateUrl: './client-control.component.html',
   styleUrl: './client-control.component.css'
 })
@@ -34,24 +35,6 @@ export class ClientControlComponent {
   scheduledJobs$!: Observable<Job[]>;
   activeJob$!: Observable<Job | null>;
   hasNoJobs$!: Observable<boolean>;
-
-    cancelJob(_t32: Job) {
-      if(confirm("Are you sure you want to cancel this job?")) {
-            this.store.dispatch(
-              clientActions.sendClientRequest({
-                client: this.client,
-                cmd: "cancel_job",
-                value: {job_id: _t32.id}}));
-      }
-    }
-
-    pauseJob(_t32: Job) {
-      this.store.dispatch(
-        clientActions.sendClientRequest({
-          client: this.client,
-          cmd: "pause_job",
-          value: {job_id: _t32.id}}));
-    }
 
     requestStateChange(active: boolean) {
       this.store.dispatch(
