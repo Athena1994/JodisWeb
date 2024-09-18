@@ -2,12 +2,12 @@ import { createFeature, createFeatureSelector, createSelector } from "@ngrx/stor
 import { ClientsState } from "./clients.reducer";
 
 
-export const selectJobsState = createFeatureSelector<ClientsState>('clients');
+export const selectClientsState = createFeatureSelector<ClientsState>('clients');
 
-export const selectClients = createSelector(selectJobsState,
+export const selectClients = createSelector(selectClientsState,
     state => state.clients
 );
 
-export const selectActionPending = createSelector(selectJobsState,
+export const selectActionPending = createSelector(selectClientsState,
     state => state.status !== 'idle'
 );
