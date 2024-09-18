@@ -14,6 +14,10 @@ export class ClientService {
         return this.http.get<Client[]>(this.api_url.toString()+"clients")
     }
 
+    deleteClient(client: Client) {
+        return this.http.post(this.api_url.toString()+"client/delete",
+            ({clientId: client.id}))}
+
     sendRequest(client: Client, cmd: string, args: any){
         return this.http.post(
             this.api_url.toString()+"client/request",

@@ -23,3 +23,16 @@
 .active-job {
     width: 100%;
 }
+
+.delete-button {
+    margin-top: -20px;
+    margin-right: -20px;
+}
+
+.delete-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: start;
+    gap: 5px;
+}

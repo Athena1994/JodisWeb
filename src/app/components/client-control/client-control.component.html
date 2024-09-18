@@ -1,7 +1,6 @@
 
 <mat-card >
     <app-card-overlay [visible]="(actionPending$|async)!"></app-card-overlay>
-
     <mat-card-header>
 
         <mat-card-title class="client-title-container">
@@ -23,10 +22,16 @@
                     <mat-icon>play_circle</mat-icon>
                 </button>
             }
+
         </mat-card-title>
+        <div class="delete-container">
+            <button mat-icon-button
+                    (click)="deleteClient()"
+                    class="delete-button"><mat-icon>cancel</mat-icon></button>
+        </div>
         <mat-card-subtitle>
-            (<span *ngIf="client.connected"> connected</span>
-            <span *ngIf="!client.connected"> disconnected</span>)
+            <span *ngIf="client.connected"> connected</span>
+            <span *ngIf="!client.connected"> disconnected</span>
         </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
@@ -37,7 +42,7 @@
             <app-active-job class="active-job"
                             [job]="activeJob$ | async"
                             [client]="client"
-                            [allowRequests]="client.state!=='ACTIVE'"></app-active-job>
+                            [allowRequests]="client.state!=='ACTIVE' && client.connected"></app-active-job>
             <mat-toolbar-row style="display: none;"></mat-toolbar-row>
             @for (job of (scheduledJobs$| async);
                 let f = $first; let l =$last;

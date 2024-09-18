@@ -27,6 +27,13 @@ export class ClientsEffects{
         ))
     ));
 
+    deleteClient$ = createEffect(() => this.actions$.pipe(
+        ofType(clientActions.deleteClient),
+        switchMap(({client}) => this.clientService.deleteClient(client).pipe(
+            map(() => clientActions.deleteClientSuccess()),
+            catchError(error => of(clientActions.deleteClientFailure({ error })))
+        ))
+    ));
 
     constructor(
         private actions$: Actions,

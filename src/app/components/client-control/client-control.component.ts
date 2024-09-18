@@ -52,6 +52,12 @@ export class ClientControlComponent {
       this.store.dispatch(jobsActions.assignJobs({ jobs: [job], client: null }));
     }
 
+    deleteClient() {
+      if (confirm("Are you sure you want to delete this client?")) {
+        this.store.dispatch(clientActions.deleteClient({client: this.client}));
+      }
+    }
+
     constructor(private store: Store) { }
 
     ngOnInit(): void {

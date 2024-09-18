@@ -28,6 +28,11 @@ export const clientsReducer = createReducer(
             return({ ...state, clients, status: 'idle' as const })
         }),
 
+    on(clientActions.deleteClient, (state) => ({ ...state, status: 'deleting' as const })),
+    on(clientActions.deleteClientSuccess, (state) => ({ ...state, status: 'idle' as const })),
+    on(clientActions.deleteClientFailure,
+        (state, { error }) => ({ ...state, error, status: 'idle' as const })),
+
     on(clientActions.loadFailure,
         (state, { error }) => ({ ...state, error, status: 'error' as const })),
 
