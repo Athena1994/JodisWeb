@@ -10,7 +10,10 @@ export const clientActions = createActionGroup({
       LoadSuccess: props<{ clients: Client[] }>(),
       LoadFailure: props<{ error: string }>(),
 
-      ApplyUpdates: props<{ client_id: number, updates: any }>(),
+
+      ApplyUpdates: props<{ id: number, updates: any }>(),
+      ApplyAdd: props<{ client: Client }>(),
+      ApplyRemove: props<{ ids: [number] }>(),
 
       SendClientRequest: props<{ client: Client, cmd: string, value: any }>(),
       SendClientRequestSuccess: emptyProps(),

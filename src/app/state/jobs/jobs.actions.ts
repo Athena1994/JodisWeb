@@ -18,10 +18,12 @@ export const jobsActions = createActionGroup({
 
       AddJob: props<{ job: Job }>(),
 
-      AssignJobs: props<{ jobs: Job[], client: Client | null }>(),
-      AssignJobsSuccess: props<{ jobs: Job[] }>(),
-      AssignJobsFailure: props<{ error: string }>(),
-
       ApplyUpdates: props<{ id: number, updates: any }>(),
+      ApplyAdd: props<{ job: Job }>(),
+      ApplyRemove: props<{ ids: [number] }>(),
+
+      AssignJobs: props<{ jobs: Job[], client: Client | null }>(),
+      AssignJobsSuccess: emptyProps(),
+      AssignJobsFailure: props<{ error: string }>(),
     }
   });

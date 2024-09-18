@@ -22,10 +22,11 @@ export class ClientsEffects{
     sendClientRequest$ = createEffect(() => this.actions$.pipe(
         ofType(clientActions.sendClientRequest),
         switchMap(({client, cmd, value}) => this.clientService.sendRequest(client, cmd, value).pipe(
-            map((c) => clientActions.sendClientRequestSuccess()),
+            map(() => clientActions.sendClientRequestSuccess()),
             catchError(error => of(clientActions.sendClientRequestFailure({ error })))
         ))
     ));
+
 
     constructor(
         private actions$: Actions,

@@ -27,29 +27,35 @@ export const jobsReducer = createReducer(
         (state, { jobs }) => ({ ...state, jobs, status: 'loaded' as const })),
     on(jobsActions.loadFailure,
         (state, { error }) => ({ ...state, error, status: 'error' as const })),
-    on(jobsActions.selectJob,
+
+        on(jobsActions.selectJob,
         (state, { job }) => ({ ...state, selectedJob: job })),
     on(jobsActions.addJob,
-        (state, { job }) => ({ ...state, jobs: [...state.jobs, job] })),
+        (state) => ({ ...state })),
+
     on(jobsActions.deleteJobs,
         (state) => ({ ...state, status: 'loading' as const })),
     on(jobsActions.deleteJobsSuccess,
-        (state, { deletedIds }) => ({ ...state, jobs: state.jobs.filter(j => !deletedIds.includes(j.id)) })),
+        (state) => ({ ...state})),
     on(jobsActions.deleteJobsFailure,
         (state, { error }) => ({ ...state, error, status: 'error' as const })),
+
     on(jobsActions.assignJobs,
         (state) => ({ ...state, status: 'loading' as const })),
     on(jobsActions.assignJobsSuccess,
-        (state, { jobs }) => ({ ...state, jobs:  state.jobs.filter(j =>
-            !jobs.map(j=>j.id).includes(j.id)).concat(jobs) })),
+        (state) => ({ ...state, status: 'idle' as const})),
     on(jobsActions.assignJobsFailure,
         (state, { error }) => ({ ...state, error, status: 'error' as const })),
-    on(jobsActions.applyUpdates,
-        (state, { id, updates }) => ({
-                ...state,
-                jobs: state.jobs.map(j => j.id === id ? { ...j, ...updates } : j)
-            })
-        )
+
+
+    on(jobsActions.applyUpdates, (state, { id, updates }) => ({
+        ...state, jobs: state.jobs.map(j => j.id === id ? { ...j, ...updates } : j)
+    })),
+    on(jobsActions.applyAdd,
+        (state, {job}) => ({...state, jobs: [...state.jobs, job]})),
+    on(jobsActions.applyRemove,
+        (state, {ids}) =>
+            ({...state, jobs: state.jobs.filter(j => !ids.includes(j.id))})),
      );
 
 

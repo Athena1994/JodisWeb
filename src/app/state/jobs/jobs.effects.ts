@@ -29,13 +29,13 @@ export class JobsEffects{
         switchMap(({ jobs, client }) => {
             if (client === null) {
                 return this.jobService.unassignJobs(jobs).pipe(
-                    map((jobs) => jobsActions.assignJobsSuccess({ jobs })),
+                    map(() => jobsActions.assignJobsSuccess()),
                     catchError(error => of(jobsActions.assignJobsFailure({ error })))
                 )
             }
             else {
                 return this.jobService.assignJobs(jobs, client.id).pipe(
-                    map((jobs) => jobsActions.assignJobsSuccess({ jobs })),
+                    map(() => jobsActions.assignJobsSuccess()),
                     catchError(error => of(jobsActions.assignJobsFailure({ error })))
                 )
             }

@@ -17,16 +17,35 @@ export class UpdateService {
         this.socket = io(this.api_url.toString()+"update",
         {transports: ['websocket'], timestampRequests: true});
 
-        this.socket.on('client-changed', ({id, updates}) => {
-            this.store.dispatch(
-                clientActions.applyUpdates(
-                    {client_id: id, updates}));
-        })
+        this.socket.on('client-changed', (changes: []) => changes.forEach(
+            ({id, updates}) => {
+                this.store.dispatch(
+                    clientActions.applyUpdates({id: id, updates}));
+        }));
 
-        this.socket.on('job-changed', ({id, updates}) => {
+        this.socket.on('client-added', (added: []) => added.forEach(
+            (client) => {
+                this.store.dispatch(
+                    clientActions.applyAdd({client}));
+        }));
+        this.socket.on('client-deleted', (ids) =>
             this.store.dispatch(
-                jobsActions.applyUpdates(
-                    {id, updates}));
-        })
+                clientActions.applyRemove({ids}))
+        );
+
+        this.socket.on('job-changed', (changes: []) => changes.forEach(
+            ({id, updates}) => {
+                this.store.dispatch(
+                    jobsActions.applyUpdates({id, updates}));
+        }));
+
+        this.socket.on('job-added', (added: []) => added.forEach(
+            (job) => {
+                this.store.dispatch(
+                    jobsActions.applyAdd({job}));
+        }));
+        this.socket.on('job-deleted', (ids) =>
+            this.store.dispatch(jobsActions.applyRemove({ids})));
+
     }
 }
