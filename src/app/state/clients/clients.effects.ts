@@ -6,6 +6,7 @@ import { of } from "rxjs";
 import { ClientService } from "../../services/clients.service";
 import { clientActions } from "./clients.actions";
 import { Client } from "../../models/client.interface";
+import { clientProgressActions } from "../client-progress/client-progress.actions";
 
 
 @Injectable()

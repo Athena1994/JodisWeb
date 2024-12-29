@@ -10,22 +10,9 @@ export class JobService {
     constructor(private http: HttpClient,
                 @Inject(API_URL_TOKEN) private api_url: string) {}
 
-    getJobs(assigned: boolean,
-            unassigned: boolean,
-            finished: boolean): Observable<Job[]> {
-        const params: any = {};
-        if (assigned) {
-            params.assigned = true;
-        }
-        if (unassigned) {
-            params.unassigned = true;
-        }
-        if (finished) {
-            params.finished = true;
-        }
-
+    getJobs(): Observable<Job[]> {
         return this.http.get<Job[]>(
-            this.api_url.toString()+"jobs", {params});
+            this.api_url.toString()+"jobs");
     }
     createJob(name: string,
               description: string,

@@ -2,7 +2,7 @@
     <mat-expansion-panel hideToggle="true">
 
       <mat-expansion-panel-header>
-            <mat-toolbar-row class="active-job">
+            <mat-toolbar class="active-job">
                 <div class="active-job-title-container">
                     <mat-icon>work</mat-icon>
                     <span>{{ job.name }}</span>
@@ -24,31 +24,29 @@
                         <mat-icon>delete</mat-icon>
                     </button>
                 </span>
-            </mat-toolbar-row>
+            </mat-toolbar>
         </mat-expansion-panel-header>
 
+
         <div>
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>Training Step</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <mat-progress-bar mode="determinate"
-                                      [value]="100"></mat-progress-bar>
-                </mat-card-content>
-            </mat-card>
+            @if(progress$ | async; as progress){
+                <mat-card>
+                    <mat-card-header>
+                        <div class="progress-title-container">
+                            <mat-card-title>{{progress.phase}}</mat-card-title>
+                            <div>{{progress.message}}</div>
+                        </div>
+                    </mat-card-header>
+                    <mat-card-content class="progress-bar-container">
+                        <mat-progress-bar [mode]="progress.percentage_done === -1 ? 'indeterminate' : 'determinate'"
+                                          [value]="100*progress.percentage_done"></mat-progress-bar>
+                        @if (progress.estimated_phase_time > 0){
+                            <div>~{{36 | timespan}}</div>
+                        }
+                    </mat-card-content>
+                </mat-card>
 
-
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>Evaluation Step</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <mat-progress-bar mode="determinate"
-                                      [value]="30"></mat-progress-bar>
-                </mat-card-content>
-            </mat-card>
-
+            }
         </div>
 
     </mat-expansion-panel>

@@ -11,7 +11,7 @@ export class JobsEffects{
 
     loadJobs$ = createEffect(() => this.actions$.pipe(
         ofType(jobsActions.load),
-        switchMap(() => this.jobService.getJobs(true, true, true).pipe(
+        switchMap(() => this.jobService.getJobs().pipe(
             map(jobs => jobsActions.loadSuccess({ jobs })),
             catchError(error => of(jobsActions.loadFailure({ error })))
         ))

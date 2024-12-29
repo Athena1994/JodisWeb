@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Pipe, PipeTransform } from '@angular/core';
 import { Job } from '../../../models/job.interface';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
@@ -9,15 +9,18 @@ import { clientActions } from '../../../state/clients/clients.actions';
 import { Client } from '../../../models/client.interface';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatFormField } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
+import { selectProgress } from '../../../state/client-progress/client-progress.selectors';
+import { Observable } from 'rxjs';
+import { ClientProgress } from '../../../models/client-progress.interface';
+import { TimespanPipe } from '../../../pipes/timespan-pipe';
 
 
 @Component({
   selector: 'app-active-job',
   standalone: true,
   imports: [MatToolbarModule, CommonModule, MatIconModule, MatButtonModule,
-    MatExpansionModule, MatProgressBarModule, MatCardModule
+    MatExpansionModule, MatProgressBarModule, MatCardModule, TimespanPipe
   ],
   templateUrl: './active-job.component.html',
   styleUrl: './active-job.component.css'
@@ -26,6 +29,8 @@ export class ActiveJobComponent {
   @Input({required: true}) job!: Job | null;
   @Input({required: true}) client!: Client;
   @Input({required: true}) allowRequests!: boolean;
+
+  progress$!: Observable<ClientProgress | undefined>;
 
   cancelJob(job: Job) {
     if(confirm("Are you sure you want to cancel this job?")) {
@@ -48,6 +53,7 @@ export class ActiveJobComponent {
   constructor(private store: Store) { }
 
   ngOnInit(): void {
+    this.progress$ = this.store.select(selectProgress(this.client.id))
   }
 
 }

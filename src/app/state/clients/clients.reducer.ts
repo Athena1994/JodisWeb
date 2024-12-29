@@ -24,17 +24,17 @@ export const clientsReducer = createReducer(
     on(clientActions.load,
         (state) => ({ ...state, status: 'loading' as const })),
     on(clientActions.loadSuccess,
-        (state, { clients }) => {
-            return({ ...state, clients, status: 'idle' as const })
-        }),
+        (state, { clients }) => ({ ...state, clients, status: 'idle' as const })),
+    on(clientActions.loadFailure,
+        (state, { error }) => ({ ...state, error, status: 'error' as const })),
 
-    on(clientActions.deleteClient, (state) => ({ ...state, status: 'deleting' as const })),
-    on(clientActions.deleteClientSuccess, (state) => ({ ...state, status: 'idle' as const })),
+    on(clientActions.deleteClient,
+        (state) => ({ ...state, status: 'deleting' as const })),
+    on(clientActions.deleteClientSuccess,
+        (state) => ({ ...state, status: 'idle' as const })),
     on(clientActions.deleteClientFailure,
         (state, { error }) => ({ ...state, error, status: 'idle' as const })),
 
-    on(clientActions.loadFailure,
-        (state, { error }) => ({ ...state, error, status: 'error' as const })),
 
     on(clientActions.sendClientRequest,
         (state) => ({ ...state, status: 'waiting' as const })),
@@ -44,8 +44,9 @@ export const clientsReducer = createReducer(
         (state, { error }) => ({ ...state, error, status: 'idle' as const })),
 
 
-    on(clientActions.applyUpdates, (state, { id, updates }) => ({
-        ...state, clients: state.clients.map( c => c.id === id ? { ...c, ...updates } : c)})),
+    on(clientActions.applyUpdates,
+        (state, { id, updates }) =>
+            ({...state, clients: state.clients.map(c => c.id === id ? { ...c, ...updates } : c)})),
     on(clientActions.applyAdd,
         (state, { client }) => ({...state, clients: [...state.clients, client]})),
     on(clientActions.applyRemove,

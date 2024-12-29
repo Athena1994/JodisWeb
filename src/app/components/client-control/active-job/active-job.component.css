@@ -1,6 +1,7 @@
 
 .toolbar-spacer {
     flex: 1 1 auto;
+    width: 100%;
 }
 
 .active-job {
@@ -21,4 +22,19 @@
 }
 .active-job-button {
     margin-right: -15px;
+}
+
+.progress-title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+    width:100%;
+}
+
+.progress-bar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

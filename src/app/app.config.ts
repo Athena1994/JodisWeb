@@ -16,6 +16,9 @@ import { newJobReducer } from './state/new-job/new-job.reducer';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { ClientsEffects } from './state/clients/clients.effects';
 import { clientsReducer } from './state/clients/clients.reducer';
+import { ClientProgressEffects } from './state/client-progress/client-progress.effects';
+import { clientProgressReducer } from './state/client-progress/client-progress.reducer';
+import { metaReducer } from './state/meta/meta.reducer';
 
 export const API_URL_TOKEN = new InjectionToken<string>('api_url');
 

@@ -1,6 +1,7 @@
 import { createAction, createActionGroup, emptyProps, props } from "@ngrx/store";
 import { Client } from "../../models/client.interface";
 import { empty } from "rxjs";
+import { ClientProgress } from "../../models/client-progress.interface";
 
 
 export const clientActions = createActionGroup({

@@ -5,6 +5,7 @@ import { Store } from "@ngrx/store";
 import { clientActions } from "../state/clients/clients.actions";
 import { io } from "socket.io-client";
 import { jobsActions } from "../state/jobs/jobs.actions";
+import { clientProgressActions } from "../state/client-progress/client-progress.actions";
 
 
 @Injectable({providedIn: 'root'})
@@ -46,6 +47,21 @@ export class UpdateService {
         }));
         this.socket.on('job-deleted', (ids) =>
             this.store.dispatch(jobsActions.applyRemove({ids})));
+
+
+        this.socket.on('client_progress-changed', (changes: []) => changes.forEach(
+            ({id, updates}) => {
+                this.store.dispatch(
+                    clientProgressActions.applyUpdates({id, updates}));
+        }));
+
+        this.socket.on('client_progress-added', (added: []) => added.forEach(
+            (client_progress) => {
+                this.store.dispatch(
+                    clientProgressActions.applyAdd({client_progress}));
+        }));
+        this.socket.on('client_progress-deleted', (ids) =>
+            this.store.dispatch(clientProgressActions.applyRemove({ids})));
 
     }
 }

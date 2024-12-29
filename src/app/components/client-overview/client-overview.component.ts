@@ -19,6 +19,7 @@ import { Job } from '../../models/job.interface';
 import { interval, Observable, of } from 'rxjs';
 import { ClientControlComponent } from '../client-control/client-control.component';
 import { UpdateService } from '../../services/update.service';
+import { clientProgressActions } from '../../state/client-progress/client-progress.actions';
 
 @Component({
   selector: 'app-client-overview',
@@ -40,6 +41,7 @@ export class ClientOverviewComponent implements OnInit {
 
     ngOnInit() {
       this.store.dispatch(clientActions.load());
+      this.store.dispatch(clientProgressActions.loadAll());
     }
 
 }

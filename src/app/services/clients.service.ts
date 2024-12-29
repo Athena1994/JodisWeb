@@ -3,6 +3,7 @@ import { Client } from "../models/client.interface";
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from "rxjs";
 import { API_URL_TOKEN } from "../app.config";
+import { ClientProgress } from "../models/client-progress.interface";
 
 @Injectable({providedIn: 'root'})
 export class ClientService {
@@ -22,5 +23,9 @@ export class ClientService {
         return this.http.post(
             this.api_url.toString()+"client/request",
             ({clientId: client.id, cmd, args: args}))
+    }
+    getProgressInfos(): Observable<ClientProgress[]> {
+        return this.http.get<ClientProgress[]>(
+            this.api_url.toString()+"progress")
     }
 }
