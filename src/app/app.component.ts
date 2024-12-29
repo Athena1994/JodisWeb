@@ -5,14 +5,14 @@ import { ClientOverviewComponent } from './components/client-overview/client-ove
 import { JobOverviewComponent } from './components/job-overview/job-overview.component';
 import { JobCreatorComponent } from './components/job-creator/job-creator.component';
 import { UnassignedJobsControlComponent } from './components/unassigned-jobs-control/unassigned-jobs-control.component';
+import { ModuleManagerComponent } from "./components/module-manager/module-manager.component";
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, ClientOverviewComponent, JobOverviewComponent,
-    JobCreatorComponent, UnassignedJobsControlComponent
-  ],
+    JobCreatorComponent, UnassignedJobsControlComponent, ModuleManagerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

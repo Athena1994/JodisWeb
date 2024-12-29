@@ -19,6 +19,7 @@ import { clientsReducer } from './state/clients/clients.reducer';
 import { ClientProgressEffects } from './state/client-progress/client-progress.effects';
 import { clientProgressReducer } from './state/client-progress/client-progress.reducer';
 import { metaReducer } from './state/meta/meta.reducer';
+import { MetaEffects } from './state/meta/meta.effects';
 
 export const API_URL_TOKEN = new InjectionToken<string>('api_url');
 
@@ -30,8 +31,12 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       jobs: jobsReducer,
       newJob: newJobReducer,
-      clients: clientsReducer}),
-    provideEffects([JobsEffects, NewJobEffects, ClientsEffects]),
+      clients: clientsReducer,
+      clientProgressInfos: clientProgressReducer,
+      meta: metaReducer}),
+    provideEffects([JobsEffects, NewJobEffects, ClientsEffects, ClientProgressEffects,
+      MetaEffects
+    ]),
     provideStoreDevtools(
       {maxAge: 25,
       logOnly: false,}
