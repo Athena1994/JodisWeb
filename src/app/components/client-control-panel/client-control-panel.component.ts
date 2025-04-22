@@ -17,15 +17,15 @@ import { CardOverlayComponent } from "./card-overlay/card-overlay.component";
 import { ActiveJobComponent } from './active-job/active-job.component';
 
 @Component({
-  selector: 'app-client-control',
+  selector: 'app-client-control-panel',
   standalone: true,
   imports: [MatCardModule, CommonModule, MatToolbarModule, MatIconModule,
     MatButtonModule, MatTooltipModule, CardOverlayComponent, ActiveJobComponent],
-  templateUrl: './client-control.component.html',
-  styleUrl: './client-control.component.css'
+  templateUrl: './client-control-panel.component.html',
+  styleUrl: './client-control-panel.component.css'
 })
 
-export class ClientControlComponent {
+export class ClientControlPanelComponent {
 
 
   @Input({required: true}) client!: Client;

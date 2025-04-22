@@ -1,11 +1,11 @@
-import { Component, Directive, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, ComponentRef, createComponent, Directive, ElementRef, EnvironmentInjector, inject, Injector, Input, runInInjectionContext, Type, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { ConfigValidationService } from '../../services/configValidation.service';
+import { ConfigValidationService } from '../../../services/configValidation.service';
 import { select, Store } from '@ngrx/store';
-import { newJobActions } from '../../state/new-job/new-job.actions';
-import { hasValidConfig, isCreating, isReadyToCreate, isValidating, selectConfig, selectDescription, selectError, selectName, selectStatus } from '../../state/new-job/new-job.selectors';
+import { newJobActions } from '../../../state/new-job/new-job.actions';
+import { hasValidConfig, isCreating, isReadyToCreate, isValidating, selectConfig, selectDescription, selectError, selectName, selectStatus } from '../../../state/new-job/new-job.selectors';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
@@ -14,37 +14,65 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatListModule } from '@angular/material/list';
+import { selectJobModules } from '../../../state/meta/meta.selectors';
+import { ModuleMeta } from '../../../models/module-meta.interface';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { metaActions } from '../../../state/meta/meta.actions';
+import { createApplication } from '@angular/platform-browser';
+import { RemoteHostComponent } from "../../remote-host/remote-host.component";
+
 
 @Directive({
   selector: '[containerSizeCheck]',
   standalone: true
 })
 export class ContainerSizeCheckDirective {
+
   @Input('showLabel') showLabel: boolean = false;
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(
+    private elementRef: ElementRef) {
+  }
 
-  ngOnInit() {
+  async ngAfterViewInit() {
+  }
+
+  async ngOnInit() {
     const container = this.elementRef.nativeElement;
     const containerWidth = container.getBoundingClientRect().width;
 
     // Adjust the threshold as needed
     this.showLabel = containerWidth > 300; // Show label if container width is greater than 300 pixels
+
   }
 }
 
+@Component({
+  standalone: true,
+  template: `Hello {{ name }}!`
+})
+class HelloComponent {
+  name = 'Angular';
+}
 
 @Component({
   selector: 'app-job-creator',
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, MatIconModule, CommonModule,
     MatProgressSpinnerModule, FormsModule, MatToolbarModule, MatCardModule,
-    MatButtonModule, MatTooltipModule, ContainerSizeCheckDirective
-  ],
+    MatButtonModule, MatTooltipModule, ContainerSizeCheckDirective, MatListModule,
+    MatOptionModule, MatSelectModule, RemoteHostComponent],
   templateUrl: './job-creator.component.html',
   styleUrl: './job-creator.component.css'
 })
 export class JobCreatorComponent {
+
+  //@ViewChild('configComponentTarget', { read: ViewContainerRef })
+   //viewContainerRef!: ViewContainerRef;
+//   @ViewChild('componentHost', { static: false })
+//   componentHost!: ElementRef;
 
   @ViewChild("nameField", {static: true})
   nameField!: MatFormFieldModule;
@@ -66,6 +94,10 @@ export class JobCreatorComponent {
   isCreating$ = this.store.pipe(select(isCreating))
   validConfig$ = this.store.pipe(select(hasValidConfig));
 
+  jobModules$ = this.store.pipe(select(selectJobModules))
+
+  selectedModule: ModuleMeta | null = null;
+
   componentDisabled$ = this.status$.pipe(
     map(status => status !== 'idle')
   );
@@ -83,6 +115,8 @@ export class JobCreatorComponent {
       }
     })
   );
+
+
 
   onNameChange(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -108,7 +142,16 @@ export class JobCreatorComponent {
     }
   }
 
-  constructor(private store: Store) {
+  constructor(private store: Store,
+            ) {
+  }
+
+  async ngAfterViewInit() {
+  }
+
+  ngOnInit() {
+    this.store.dispatch(metaActions.loadModules());
+
   }
 
 

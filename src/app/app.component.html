@@ -1,11 +1,5 @@
-<div class="container">
-  <div class="overview">
-    <app-client-overview class="col-item"></app-client-overview>
-    <app-job-overview class="col-item" style="display:none;"></app-job-overview>
-  </div>
-  <div class="overview">
-    <app-module-manager></app-module-manager>
-    <app-job-creator></app-job-creator>
-    <app-unassigned-jobs-control class="col-item"></app-unassigned-jobs-control>
-  </div>
+<app-header></app-header>
+
+<div class="content">
+  <router-outlet></router-outlet>
 </div>

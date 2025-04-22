@@ -1,12 +1,10 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatListModule, MatSelectionList, MatSelectionListChange } from '@angular/material/list';
-import { Job } from '../../models/job.interface';
-import { JobService } from '../../services/jobs.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatListModule, MatSelectionList} from '@angular/material/list';
+import { Job } from '../../../models/job.interface';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
-import { selectAssignedJobs, selectFinishedJobs, selectSelectedJob, selectUnassignedJobs } from '../../state/jobs/jobs.selectors';
-import { jobsActions } from '../../state/jobs/jobs.actions';
+import { selectAssignedJobs, selectFinishedJobs, selectSelectedJob, selectUnassignedJobs } from '../../../state/jobs/jobs.selectors';
+import { jobsActions } from '../../../state/jobs/jobs.actions';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 

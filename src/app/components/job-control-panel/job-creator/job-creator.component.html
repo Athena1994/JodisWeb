@@ -1,0 +1,99 @@
+
+<mat-toolbar class="title-bar">
+
+    <h2> Create new Job </h2>
+    @if((isCreating$ | async)) {
+        <mat-spinner diameter="50"></mat-spinner>
+    }
+    <span class="toolbar-spacer"></span>
+
+    <button mat-fab extended
+            color="primary"
+            [disabled]="!(createEnabled$ | async)"
+            (click)="createJob()">
+                Create
+                <mat-icon>add_circle</mat-icon>
+    </button>
+</mat-toolbar>
+
+
+<mat-card [ariaDisabled]="componentDisabled$ | async">
+    <mat-card-content>
+
+        <div class="vcontainer">
+            <div class="card-container">
+
+                <div class="container-left">
+
+                    <mat-form-field class="container-left-element">
+                        <mat-label>Name</mat-label>
+                        <input matInput
+                                type="text"
+                                [ngModel]="name$ | async"
+                                (input)="onNameChange($event)">
+                    </mat-form-field>
+
+                    <mat-form-field class="container-left-element">
+                        <mat-label>Module</mat-label>
+
+                        <mat-select color="primary"
+                                    [(ngModel)]="selectedModule">
+                            @for(module of (jobModules$ | async); track module) {
+                                <mat-option [value]="module">
+                                    {{ module.name }}
+                                </mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div class="config-field container-left-element"
+                            containerSizeCheck>
+                        @if (validationFailed$ | async) {
+                            <mat-icon class="config-icon">error</mat-icon>
+                            <label class="config-label">invalid config</label>
+                        }
+                        @else if (isValidating$ | async) {
+                            <mat-spinner class="config-icon"></mat-spinner>
+                            <label class="config-label">validating</label>
+                        }
+                        @else if (validConfig$ | async) {
+                            <mat-icon class="config-icon">check_circle</mat-icon>
+                            <label class="config-label">valid config</label>
+                        }
+                        @else {
+                            <mat-icon class="config-icon">question_mark</mat-icon>
+                            <label class="config-label">no config</label>
+                        }
+
+                        <button mat-icon-button
+                            (click)="fileUpload.click()"
+                            matTooltip="load job configuration">
+                            <mat-icon fontIcon="file_open"></mat-icon>
+                        </button>
+                    </div>
+
+                </div>
+
+                <mat-form-field class="description-field"
+                                subscriptSizing="dynamic">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput
+                    cdkTextareaAutosize="true"
+                    cdkAutosizeMaxRows="5"
+                    [ngModel]="description$ | async"
+                    (input)="onDescriptionChange($event)"></textarea>
+                </mat-form-field>
+
+            </div>
+            <div>
+                <app-remote-host></app-remote-host>
+            </div>
+        </div>
+    </mat-card-content>
+
+</mat-card>
+
+<input type="file"
+        class="file-input"
+        (change)="onFileSelected($event)"
+        #fileUpload>

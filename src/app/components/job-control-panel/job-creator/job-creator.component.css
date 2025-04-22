@@ -58,7 +58,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 20px;
 }
+
+.container-left-element {
+    max-width: 180px;}
+
 
 .config-icon {
     margin-left: 5px;
@@ -72,4 +79,10 @@
     display: flex;
     flex-direction: row;
     gap: 10px;
+}
+
+.vcontainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }

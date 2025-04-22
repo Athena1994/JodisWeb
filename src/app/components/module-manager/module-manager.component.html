@@ -1,24 +1,27 @@
-<mat-toolbar>
-    <h2> Server Modules (API version {{(version$ | async)}})</h2>
-    <span class="toolbar-spacer"></span>
+<div class="container">
 
-    <button mat-fab extended
-        color="primary"
-        (click)="fileUpload.click()">
-            Upload
-            <mat-icon>upload</mat-icon>
-    </button>
-</mat-toolbar>
 
-<mat-card>
-    <mat-card-content>
-        @for (module of (modules$ | async); track module)
-        {
-            <app-module-control [module]="module"></app-module-control>
-        }
-    </mat-card-content>
-</mat-card>
+    <mat-toolbar>
+        <h2> Server Modules (API version {{(version$ | async)}})</h2>
+        <span class="toolbar-spacer"></span>
 
+        <button mat-fab extended
+            color="primary"
+            (click)="fileUpload.click()">
+                Upload
+                <mat-icon>upload</mat-icon>
+        </button>
+    </mat-toolbar>
+
+    <mat-card>
+        <mat-card-content>
+            @for (module of (modules$ | async); track module)
+            {
+                <app-module-control [module]="module"></app-module-control>
+            }
+        </mat-card-content>
+    </mat-card>
+</div>
 
 
 <input type="file"

@@ -1,6 +1,59 @@
 <mat-card >
-    <mat-card-header>
-        <mat-icon>extension</mat-icon>
-        {{module.name}} - {{module.version}}
+    <mat-card-header class="header">
+        <div class="header">
+            <mat-icon>extension</mat-icon>
+            <mat-label>{{module.name}}</mat-label>
+
+        </div>
+
+        <div class="toolbar-spacer"></div>
+
+        <div class="tool-container">
+            <button mat-fab extended color="primary" [disabled]="hasError()">
+                <mat-label #playLabel>
+                    <span>
+                    @if (module.running) {
+                        Stop
+                    } @else {
+                        Start
+                    }
+                    </span>
+                </mat-label>
+                <mat-icon #playIcon>play_arrow</mat-icon>
+            </button>
+        </div>
+
+        <div class="tool-container">
+            <button mat-fab extended color="primary" [disabled]="module.running"
+                (click)="reloadModule()">
+                <mat-label>Reload</mat-label>
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </div>
+
     </mat-card-header>
+
+    <mat-card-content>
+
+        <div class="content">
+            <mat-label>{{module.error}}</mat-label>
+            <mat-form-field class="description-field"
+                            subscriptSizing="dynamic">
+                <mat-label>Description</mat-label>
+                <textarea matInput
+                [ngModel]="module.description"
+                cdkTextareaAutosize="true"
+                cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+
+            @for (version of module.versions; track version) {
+                <app-version-overview [version]="version"></app-version-overview>
+            }
+
+
+        </div>
+
+
+
+    </mat-card-content>
 </mat-card>
