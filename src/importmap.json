@@ -1,0 +1,17 @@
+{
+  "imports": {
+    "@angular/common": "https://ga.jspm.io/npm:@angular/common@19.2.7/fesm2022/common.mjs",
+    "@angular/core": "https://ga.jspm.io/npm:@angular/core@19.2.7/fesm2022/core.mjs",
+    "@angular/platform-browser": "https://ga.jspm.io/npm:@angular/platform-browser@19.2.7/fesm2022/platform-browser.mjs"
+  },
+  "scopes": {
+    "https://ga.jspm.io/": {
+      "@angular/common/http": "https://ga.jspm.io/npm:@angular/common@19.2.7/fesm2022/http.mjs",
+      "@angular/core/primitives/di": "https://ga.jspm.io/npm:@angular/core@19.2.7/fesm2022/primitives/di.mjs",
+      "@angular/core/primitives/signals": "https://ga.jspm.io/npm:@angular/core@19.2.7/fesm2022/primitives/signals.mjs",
+      "rxjs": "https://ga.jspm.io/npm:rxjs@7.8.2/dist/esm5/index.js",
+      "rxjs/operators": "https://ga.jspm.io/npm:rxjs@7.8.2/dist/esm5/operators/index.js",
+      "tslib": "https://ga.jspm.io/npm:tslib@2.8.1/tslib.es6.mjs"
+    }
+  }
+}
