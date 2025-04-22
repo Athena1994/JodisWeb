@@ -1,10 +1,14 @@
+import { VersionMeta } from "./version-meta";
 
 
 export interface ModuleMeta {
-    id: number;
     name: string;
-    version: string;
+    active_version: string;
+    description: string
     icon_url: string | null;
-    active: boolean;
+    running: boolean;
+    job_processor: boolean;
+    versions: VersionMeta[];
+    error: string
 
 }

@@ -11,6 +11,7 @@ export const newJobActions = createActionGroup({
 
       SetName: props<{ name: string }>(),
       SetDescription: props<{ description: string }>(),
+      SetModule: props<{ module: string}>(),
 
       CreateJob: emptyProps(),
       CreateJobSuccess: emptyProps(),

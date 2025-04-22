@@ -19,8 +19,12 @@ export const metaActions = createActionGroup({
       UploadModuleFailure: props<{ error: string}>(),
 
       DeleteModule: props<{ module: ModuleMeta}>(),
-      DeleteModuleSuccess: props<{ moduleId: number}>(),
+      DeleteModuleSuccess: props<{ moduleName: string}>(),
       DeleteModuleFailure: props<{ error: string}>(),
+
+      ReloadModule: props<{ moduleName: string}>(),
+      ReloadModuleSuccess: props<{ module: ModuleMeta}>(),
+      ReloadModuleFailure: props<{ error: string}>(),
 
     }
   });

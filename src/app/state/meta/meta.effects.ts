@@ -42,10 +42,21 @@ export class MetaEffects{
         ofType(metaActions.deleteModule),
         switchMap(({module}) =>
             this.metaService.deleteModule(module).pipe(
-                map(() => metaActions.deleteModuleSuccess({ moduleId: module.id })),
+                map(() => metaActions.deleteModuleSuccess({ moduleName: module.name })),
                 catchError(error => of(metaActions.deleteModuleFailure(
                     { error })))
         ))));
+
+    reloadModule$ = createEffect(() => this.actions$.pipe(
+        ofType(metaActions.reloadModule),
+        switchMap(({moduleName}) => {
+            return this.metaService.reload(moduleName).pipe(
+                map(module => metaActions.reloadModuleSuccess({ module })),
+                catchError(error => of(metaActions.reloadModuleFailure(
+                    { error })))
+            );
+        })
+    ));
 
     constructor(
         private actions$: Actions,
